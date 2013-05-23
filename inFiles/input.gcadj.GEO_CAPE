@@ -1,0 +1,107 @@
+GEOS-CHEM ADJOINT SIMULATION v33e
+-------------------------------+-----------------------------------------------
+%%% ADJOINT SIMULATION MENU %%%           
+Do adjoint run    LADJ         : T
+Selecet one simulation type    :---
+Invese problem    L4DVAR       : T
+Kalman filter     L3DVAR       : F
+Sensitivity       LSENS        : F
+ => spot finite diff  FD_SPOT  : F
+ => global finite diff FD_GLOB : F
+-------------------------------+-----------------------------------------------
+%%% FORWARD MODEL OPTIONS %%%           
+adjoint chemistry LADJ_CHEM    : T
+aerosol thermo    LAERO_THEM   : T
+-------------------------------+-----------------------------------------------
+%%% ADJOINT MODEL OPTIONS %%%           
+Include a priori term APSRC    : F
+compute bkgrnd error cov       : F
+Compute inverse Hessian LINVH  : F
+Include rxn rate sensitivities : F
+Delete chk files LDEL_CHKPT    : T
+Scale up and FILL adj transport: F
+-------------------------------+-----------------------------------------------
+%%% DIRECTORIES %%%
+Optimization output            : OptData/
+Temporary adjoint dir adjtmp   : adjtmp/
+Diagnostics ouptut             : diagadj/
+-------------------------------------------------------------------------------
+%%% CONTROL VARIABLE MENU %%%
+Initial conditions LICS        : F
+... OR emissions   LADJ_EMS    : T
+ => strat prod/loss LADJ_STRAT : F
+>------------------------------<
+          FOR LICS             :  
+NSOPT: number of tracers opt   : 1
+  => opt these tracers------>  : TRC# trc_name SF_DEFAULT REG_PARAM ERROR
+Tracer  #1                     : 1    CH4      1          1         1
+>------------------------------<
+          FOR LADJ_EMS         :
+NNEMS: ems groups implemented  : 1
+Emission entries ------------> : EMS# ems_name       opt  SF_DEFAULT REG_PARAM ERROR
+Emission #1                    : 1    ADCH4EMS       T    2          1         1
+Number emis time group MMSCL   : 1
+>------------------------------<
+        FOR LADJ_STRAT         :
+NSTPL: strat prod & loss trcs  : 0
+Strat prod & loss trc entries  : ID# trc_name    opt   SF_DEFALUT  REG_PARAM ERROR
+-------------------------------------------------------------------------------
+%%% OBSERVATION MENU %%%
+%%%  for PSUEDO_OBS  %%%
+%%%   or LSENSE      %%%
+Observation frequency OBS_FREQ : 60
+Limit number of observations?  : F
+  =>  max number of obs NSPAN  : 1
+COST FUNCTION options for LSENS:---
+  =>  tracer kg/box            : T
+  =>  tracer ug/m3             : F
+  =>  tracer ppb               : F
+  =>  tracer ppm free trop     : F
+  =>  species ppb w/averaging  : F
+  =>  tracer ug/m3 pop weight  : F
+>------------------------------<
+NOBS: number of tracers to obs : 1
+  => obs these tracers------>  : TRC# tracer_name
+Tracer  #1                     : 1    CH4
+>------------------------------<
+NOBS_CSPEC: # of species to obs: 0
+  => obs these species------>  : species_name
+Species #1                     : O3
+-------------------------------------------------------------------------------
+%%% FINITE DIFFERENCE MENU %%%
+fd perturbation        FD_DIFF : 0.1
+Numerator of derivative to test:---
+ => longitude degree   LONFD   : 32
+ => latitude  degree   LATFD   : 21
+ => OR pick box by grid index? : T
+   => longidute index  IFD     : 41
+   => latitude index   JFD     : 32
+ => altidude index     LFD     : 1
+ => tracer (STT TRC#)  NFD     : 1
+Denomenator of deriv.   to test:
+ => w/LEMS: emis group MFD     : 1
+ => w/LEMS: sector     EMSFD   : 1
+ => w/LICS: tracer     ICSFD   : 1
+ => w/LSTR: tracer     STRFD   : 1
+-------------------------------------------------------------------------------
+%%% DIAGNOSTICS MENU %%%
+General                        : T
+ => print debug  LPRINTFD      : T
+ => jsave, jsave2              : F
+ => adjoint traj LADJ_TRAJ     : F
+   => w.r.t. scale factors?    : T
+ => save iteration diags LITR  : T
+ => sense w.r.t absolute emis  : F
+CO satellite diganostics       : F
+ => H(model)                   : F
+ => h(obs)                     : F
+ => H(model)-h(obs)            : F
+ => adjoint forcing            : F
+ => model bias                 : F
+ => observation count          : F
+ => DOFs                       : F
+TES NH3 diagnostics            :---
+ => BLVMR                      : F
+-------------------------------------------------------------------------------
+END OF FILE                    :
+-------------------------------+-----------------------------------------------

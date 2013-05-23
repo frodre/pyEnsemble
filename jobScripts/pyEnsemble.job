@@ -1,0 +1,25 @@
+#!/bin/csh
+#PBS -N MPI_test     
+#PBS -l nodes=16:ppn=24
+#PBS -l walltime=10:00:00
+#PBS -V
+
+setenv simDir '/data/aperkins/runs/CH4/gcadj_v33e_CH4_GC/runs'
+setenv codeDir '/data/aperkins/runs/CH4/gcadj_v33e_CH4_GC/code'
+setenv inputFiles 'v8-02-01/geos5'
+setenv rName 'gcadj_v33e_CH4_GC'
+setenv ppn 24
+
+#Compile code for runs
+	rm $simDir/$inputFiles/geos
+        cd $codeDir
+        make -f Makefile.ifort
+	chmod +x geos
+	mv -f geos $simDir/$inputFiles
+
+cd /data/aperkins/pyEnsemble
+
+mpirun -r ssh -np 384 python RunEnsemble.py $simDir $inputFiles $rName $ppn 
+
+exit 0
+
