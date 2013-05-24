@@ -1,0 +1,88 @@
+nes starting with #PBS are treated by bash as comments, but interpreted by qsub
+# as arguments.
+
+#
+# Set the name of the job
+#PBS -N CMS_TEST
+
+# Set number for allocation
+#PBS -A ME00000002
+
+#
+# Set a walltime for the job. The time format is HH:MM:SS - In this case we run for 5 minutes.
+
+#PBS -l walltime=01:00:00
+
+#
+# Select number of nodes, number of  processor per node.
+#
+
+#PBS -l nodes=4:ppn=12
+
+# Join the output and error files
+
+#PBS -j oe
+
+##PBS -q janus-debug
+
+#Source the Dotkit init to set up the environment for dotkit modules
+. /curc/tools/utils/dkinit
+
+# First we "reuse" to make sure nothing from the submitting environment confuses things.
+# A "reuse" is an "unuse" followed by a "use" to override any unexpected changes to
+# the environment
+
+reuse x11
+reuse IDL
+#reuse ICS
+#reuse NCAR-Parallel-Intel-testing-1
+reuse NCAR-Parallel-Intel
+##reuse NCAR-Serial
+reuse Torque
+reuse Moab
+reuse OpenMPI-1.4.3
+
+#unset LIBRARY_PATH
+
+# Set the stacksize unlimited to allow for large array handling in GEOS-CHEM
+ulimit -s unlimited
+#ulimit -s 2097152
+export KMP_STACKSIZE=2097152000
+# Deal with endian problem for reading GEOS-CHEM data
+export F_UFMTENDIAN=big
+
+# Directory shortcups
+export PFS='/projects/nibo9370/'
+
+#use -a > /home/nibo9370/batch/use_a.txt
+#env > /home/nibo9370/batch/env.txt
+
+
+cd /projects/nibo9370/ensemble/master/gcadj_cms_random/runs/v8-02-01/geos5/
+date > gc.log
+export LD_LIBRARY_PATH="/curc/tools/nonfree/redhat_5_x86_64/ics_2011.0.013/composerxe-2011/lib/intel64:/curc/tools/free/redhat_5_x86_64/netcdf-4.1.3_ics-2011.0.013_hdf-4.2.6_hdf5-1.8.7/lib:/curc/tools/free/redhat_5_x86_64/hdf5-1.8.7_ics-2011.0.013/lib:/curc/tools/free/redhat_5_x86_64/zlib-1.2.5/lib:/curc/tools/free/redhat_5_x86_64/openmpi-1.4.5_intel-12.1.4/lib"
+
+source  /curc/tools/nonfree/redhat_5_x86_64/intel-12.1.4/bin/ifortvars.sh 'intel64'
+
+export simDir="/projects/nibo9370/ensemble/master/gcadj_cms_random/runs"
+export codeDir="/projects/nibo9370/ensemble/master/gcadj_cms_random/code"
+export inputFiles='v8-02-01/geos5'
+export rName='gcadj_cms_random'
+export ppn=12
+
+#Compile code for runs
+	rm $simDir/$inputFiles/geos
+        cd $codeDir
+#        make -f Makefile.ifort
+        make LBFGS='yes' -f Makefile.ifort
+	chmod +x geos
+	mv -f geos $simDir/$inputFiles
+
+cd /projects/nibo9370/ensemble/pyEnsemble
+
+#mpirun -r ssh -np 72 python RunEnsemble.py $simDir $inputFiles $rName $ppn
+mpirun /home/henzed/.local/bin/python RunEnsemble.py $simDir $inputFiles $rName $ppn
+
+exit 0
+
+

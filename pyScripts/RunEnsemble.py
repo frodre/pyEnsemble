@@ -43,9 +43,13 @@ exeFile = os.path.join(simDir, simFileDir, 'geos')
 fdDiff = 0.1
 
 
+# actual communication agent
 comm = MPI.COMM_WORLD
 
+# number of total processors
 size = comm.Get_size()
+
+# current processor number
 rank = comm.Get_rank()
 
 
@@ -56,7 +60,7 @@ if rank == 0:
 	dst = os.path.join( simName, os.path.split(simDir)[1] )
 	logger.debug( "Number of simulations: %d" % (numSims) )
 	
-	#Generate Input Files
+	#Generate Input Files (e.g., input.gcadj.tmp01 )
 	try:
 		tmpInFiles, genMsg = InputGen.inFileGen(inputFile, numSims, fdDiff)
 		logger.debug("Input files created: %s" % (tmpInFiles))
@@ -176,6 +180,8 @@ if rank % procPerNode == 0:
 			tTotal = (tEnd - tStart) 
 			logger.info('Start time: %fs End time: %fs Total time: %fs' %(tStart, tEnd, tTotal) )
 		else:
+                        # note: rank 0 does all the work.  Here just calling the post processor 
+                        # for completeness, but it won't do anything for the non-rank 0 threads
 			pp.compileHess(comm, logger, emsPath, None, procPerNode, rank, fdDiff, MPI)
 	except Exception, e:
 		logger.critical("Problem post processing the data: %s" % (e))
