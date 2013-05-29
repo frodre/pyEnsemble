@@ -1,0 +1,58 @@
+#!/bin/csh
+#PBS -N MPI_pyEnsemble   
+#PBS -l nodes=4:ppn=12
+#PBS -l walltime=01:00:00
+
+#Source the Dotkit init to set up the environment for dotkit modules
+. /curc/tools/utils/dkinit
+
+# First we "reuse" to make sure nothing from the submitting environment confuses things.
+# A "reuse" is an "unuse" followed by a "use" to override any unexpected changes to 
+# the environment
+
+reuse x11
+reuse IDL
+reuse ICS
+reuse NCAR-Parallel-Intel
+##reuse NCAR-Serial
+reuse Torque
+reuse Moab
+reuse OpenMPI-1.4.3
+
+#unset LIBRARY_PATH
+
+# Set the stacksize unlimited to allow for large array handling in GEOS-CHEM
+ulimit -s unlimited
+
+# Deal with endian problem for reading GEOS-CHEM data
+setenv F_UFMTENDIAN big
+
+setenv LD_LIBRARY_PATH '/curc/tools/nonfree/redhat_5_x86_64/ics_2011.0.013/composerxe-2011/lib/intel64:/curc/tools/free/redhat_5_x86_64/netcdf-4.1.3_ics-2011.0.013_hdf-4.2.6_hdf5-1.8.7/lib:/curc/tools/free/redhat_5_x86_64/hdf5-1.8.7_ics-2011.0.013/lib:/curc/tools/free/redhat_5_x86_64/zlib-1.2.5/lib:/curc/tools/free/redhat_5_x86_64/openmpi-1.4.5_intel-12.1.4/lib'
+
+
+source /curc/tools/nonfree/redhat_5_x86_64/intel-12.1.4/bin/ifortvars.csh 'intel64'
+
+# The input.gcadj file and locations file here are templates. Copy
+# them inot the $PFS/pyEnsemble folder to be used.
+
+# The input.gcadj files in this directory will get overwritten with
+# the input.gcadj file in $PFS/pyEnsemble/
+setenv simDir '/projects/henzed/runs/CH4/gcadj_v33e_CH4/runs'
+setenv codeDir '/projects/henzed/runs/CH4/gcadj_v33e_CH4/code'
+setenv inputFiles 'v8-02-01/geos5'
+setenv rName 'gcadj_v33e_CH4'
+setenv ppn 12
+
+#Compile code for runs
+cd $codeDir
+make -f Makefile.ifort
+chmod +x geos
+mv -f geos $simDir/$inputFiles
+
+cd $PFS/pyEnsemble
+
+
+mpirun /home/henzed/.local/bin/python RunEnsemble.py $simDir $inputFiles $rName $ppn 
+
+exit 0
+
