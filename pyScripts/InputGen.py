@@ -1,5 +1,3 @@
-#/usr/bin/env python
-
 import os, numpy as np
 
 #####################
@@ -15,23 +13,49 @@ import os, numpy as np
 # delimited file named 'locations' in the pyEnsemble directory.  
 #####################
 
-def inFileGen(inputFile, numGenFiles, fdDiff):
-	locations = np.loadtxt('locations', dtype='int')
+def inFileGen(inputFile, flagFile, numGenFiles, fdDiff):
 
+	# Read first and second line of the flagList file to read flags 
+	#  and their output format.
+  
+	flagList = []
+	fmtList = []
 	try:
-		assert os.path.exists(inputFile)
-	except:
-		raise IOError('%s not found in current directory' % (inputFile) )
+		f = open(flagFile, 'r')
+		flagStr = f.readline()
+		fmtStr = f.readline()
+		flagStr = flagStr.split(' ')
+		fmtStr = fmtStr.split(' ')
+		for item in flagStr:
+			if item:
+				item = item.strip('\n')
+				item = item.strip('\r')
+				flagList.append(item)
+		for item in fmtStr:
+			if item:
+                                item = item.strip('\n')
+                                item = item.strip('\r')
+                                fmtList.append(item)
+				
+		f.close()
+	except IOError, e:
+		print e
+		raise IOError('Could not read %s to obtain flags and values'\
+			      % (flagFile))
+	
+	# Load rest of the values from the file
+	numFlags = len(flagList)
+	flagValues = np.loadtxt(flagFile, dtype='float', skiprows=2)
 
-	numLocs = len(locations)
+	numVals = len(flagValues)
 
-	# numGenFiles - 1 because first simulation is base case
-	if numLocs > numGenFiles - 1:
-		msg = "More locations provided than input files generated.  Last %i locations omitted" \
-		      % ( numLocs - numGenFiles)
-	elif numLocs < numGenFiles - 1:
-		msg = ("Less locations provided than input files generated. Used default location of LATIDX 32"
-		       " LONIDX 41 for %i locations." % (numGenFiles - numLocs) )
+	if numVals > numGenFiles:
+		msg = "More flag value rows provided than specified input files to be"\
+		      "input files generated. Last %i locations omitted" \
+		      % ( numVals - numGenFiles)
+	elif numVals < numGenFiles:
+		msg = ("Less flag value rows provided than total simulations. Used last "\
+		       "row for  %i locations." % (numGenFiles - numVals) )
 	else:
 		msg = None
 	
@@ -40,38 +64,27 @@ def inFileGen(inputFile, numGenFiles, fdDiff):
 	inFileNames = [ '%s.tmp%i' % (inputFile, x) for x in range(0,numGenFiles) ]
 	# For each input filename, open a file to write to, store file handler pointers in a list
 	inFiles = [ open(inFile, 'w') for inFile in inFileNames ]
-	
+	print numVals, numFlags, range(0,numFlags)	
 	#Open the template file and copy each line to all input files	
 	template = open(inputFile, 'r')
 	for line in template:
-		k = -1
+		k = 0 
 		for fh in inFiles:
 			try:
-				#If k = -1 it's base case simulation only need FD_DIFF set to 0
-				if k == -1:
-					newLine = line.replace('#FDDIFF', str(0))
-					newLine = newLine.replace('#LATIDX', str(32))
-					newLine = newLine.replace('#LONIDX', str(41))
-					fh.write(newLine)
-					k = 0
 
-				#Depending on the number of locations provided, may have to fill in 
-				#files using a default location
- 				elif k < numLocs:
-					
-					#Look for the flags and replace with unique location identifiers
-					newLine = line.replace('#LATIDX', str(locations[k,1]) )
-					newLine = newLine.replace('#LONIDX', str(locations[k,0]) )
-					newLine = newLine.replace('#FDDIFF', str(fdDiff))
-					fh.write(newLine)
+				newLine = line
+				if k < numVals:
+                        	        for i in range(0, numFlags - 1):
+                	                        newLine = newLine.replace(flagList[i],\
+        	                                  fmtList[i] % flagValues[k, i])
+	                                fh.write(newLine)
 					k = k + 1
-
 				else:
-					
-					newLine = line.replace('#LATIDX', str(32))
-					newLine = newLine.replace('#LONIDX', str(41))
-					newLine = newLine.replace('#FDDIFF', str(fdDiff))
-					fh.write(newLine)
+	                                for i in range(0, numFlags - 1):
+        	                                newLine = newLine.replace(flagList[i],\
+                	                          fmtList[i] % flagValues[k-1, i])
+                        	        fh.write(newLine)
+
 
 			except IOError, e:
 				raise IOError(e)

@@ -69,13 +69,13 @@ NOBS_CSPEC: # of species to obs: 0
 Species #1                     : O3
 -------------------------------------------------------------------------------
 %%% FINITE DIFFERENCE MENU %%%
-fd perturbation        FD_DIFF : 0.1
+fd perturbation        FD_DIFF : %FDDIFF
 Numerator of derivative to test:---
  => longitude degree   LONFD   : 32
  => latitude  degree   LATFD   : 21
  => OR pick box by grid index? : T
-   => longidute index  IFD     : #LONIDX
-   => latitude index   JFD     : #LATIDX
+   => longidute index  IFD     : %LONIDX
+   => latitude index   JFD     : %LATIDX
  => altidude index     LFD     : 1
  => tracer (STT TRC#)  NFD     : 1
 Denomenator of deriv.   to test:
