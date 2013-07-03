@@ -7,6 +7,7 @@ import subprocess
 import shutil
 import logging
 import ConfigParser
+import time
 
 from mpi4py import MPI
 import numpy as np
@@ -268,9 +269,11 @@ if rank % procPerNode == 0:
 		#same as typing command run > log into terminal
 		runloc = os.path.join(dir, 'run')
 		logloc = os.path.join(dir, 'log')
-		runProc = subprocess.call([runloc, '>', logloc], shell=False)
-	
-	except OSError, e:
+		logFile = open(logloc, 'w')
+		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y'))
+		runProc = subprocess.call([runloc], shell=False, stdout=logFile)
+		logFile.close()
+	except (OSError, IOError), e:
 		logger.error("Failed to start simulation on %s: %s" % (name, e) )
 		
 	#Post Process the Data
