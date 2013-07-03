@@ -270,8 +270,9 @@ if rank % procPerNode == 0:
 		runloc = os.path.join(dir, 'run')
 		logloc = os.path.join(dir, 'log')
 		logFile = open(logloc, 'w')
-		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y'))
+		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y\n'))
 		runProc = subprocess.call([runloc], shell=False, stdout=logFile)
+		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y\n'))
 		logFile.close()
 	except (OSError, IOError), e:
 		logger.error("Failed to start simulation on %s: %s" % (name, e) )
