@@ -271,7 +271,7 @@ if rank % procPerNode == 0:
 		logloc = os.path.join(dir, 'log')
 		logFile = open(logloc, 'w')
 		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y\n'))
-		runProc = subprocess.call([runloc], shell=False, stdout=logFile)
+		retCode = os.system('%s >> %s' % (runloc, logloc))
 		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y\n'))
 		logFile.close()
 	except (OSError, IOError), e:
