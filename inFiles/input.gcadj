@@ -23,7 +23,7 @@ Scale up and FILL adj transport: F
 -------------------------------+-----------------------------------------------
 %%% DIRECTORIES %%%
 Optimization output            : OptData/
-Temporary adjoint dir adjtmp   : /state/partition2/temp
+Temporary adjoint dir adjtmp   : adjtmp/
 Diagnostics ouptut             : diagadj/
 -------------------------------------------------------------------------------
 %%% CONTROL VARIABLE MENU %%%
