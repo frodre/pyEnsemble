@@ -25,6 +25,7 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 	logger.debug('Recieved inputFile %s' % inputFile)
 	logger.debug('Recieved flagFile %s' % flagFile)
 	
+	exclude = ['\n', '\r']	
 	flagList = []
 	fmtList = []
 	logger.info('Parsing flags for input file generation')
@@ -35,12 +36,12 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 		flagStr = flagStr.split(' ')
 		fmtStr = fmtStr.split(' ')
 		for item in flagStr:
-			if item:
+			if item and item not in exclude:
 				item = item.strip('\n')
 				item = item.strip('\r')
 				flagList.append(item)
 		for item in fmtStr:
-			if item:
+			if item and item not in exclude:
                                 item = item.strip('\n')
                                 item = item.strip('\r')
                                 fmtList.append(item)
@@ -57,10 +58,9 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 	
 	# Load rest of the values from the file
 	numFlags = len(flagList)
-	flagValues = np.loadtxt(flagFile, dtype='float', skiprows=2)
-
-	numVals = len(flagValues)
-
+	flagValues = np.loadtxt(flagFile, dtype='float', skiprows=2, ndmin=2)
+	numVals = flagValues.shape[0] 
+	
 	if numVals > numGenFiles:
 		msg = "More flag value rows provided than specified input files to be"\
 		      "input files generated. Last %i locations omitted" \
@@ -79,7 +79,6 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 	# For each input filename, open a file to write to, store file handler 
 	#  pointers in a list
 	inFiles = [ open(inFile, 'w') for inFile in inFileNames ]
-	print numVals, numFlags, range(0,numFlags)	
 	#Open the template file and copy each line to all input files	
 	template = open(inputFile, 'r')
 	for line in template:
@@ -89,19 +88,19 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 
 				newLine = line
 				if k < numVals:
-                        	        for i in range(0, numFlags - 1):
+                        	        for i in range(0, numFlags):
                 	                        newLine = newLine.replace(flagList[i],\
         	                                  fmtList[i] % flagValues[k, i])
 	                                fh.write(newLine)
 					k = k + 1
 				else:
-	                                for i in range(0, numFlags - 1):
+	                                for i in range(0, numFlags):
         	                                newLine = newLine.replace(flagList[i],\
                 	                          fmtList[i] % flagValues[k-1, i])
                         	        fh.write(newLine)
 
 
-			except IOError, e:
+			except (IOError, IndexError), e:
 				logger.error(e)
 				raise IOError(e)
 

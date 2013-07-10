@@ -1,7 +1,7 @@
 #!/bin/csh
 #PBS -N gcadj_v33e_CH4_GCEns     
 #PBS -l nodes=12:ppn=24
-#PBS -l walltime=10:00:00
+#PBS -l walltime=24:00:00
 #PBS -V
 
 setenv ppn 24
