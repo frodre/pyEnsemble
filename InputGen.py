@@ -35,12 +35,12 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 		flagStr = flagStr.split(' ')
 		fmtStr = fmtStr.split(' ')
 		for item in flagStr:
-			if item:
+			if item and not item == '':
 				item = item.strip('\n')
 				item = item.strip('\r')
 				flagList.append(item)
 		for item in fmtStr:
-			if item:
+			if item and not item == '':
                                 item = item.strip('\n')
                                 item = item.strip('\r')
                                 fmtList.append(item)
@@ -89,19 +89,19 @@ def inFileGen(inputFile, flagFile, numGenFiles):
 
 				newLine = line
 				if k < numVals:
-                        	        for i in range(0, numFlags - 1):
+                        	        for i in range(0, numFlags):
                 	                        newLine = newLine.replace(flagList[i],\
         	                                  fmtList[i] % flagValues[k, i])
 	                                fh.write(newLine)
 					k = k + 1
 				else:
-	                                for i in range(0, numFlags - 1):
+	                                for i in range(0, numFlags):
         	                                newLine = newLine.replace(flagList[i],\
                 	                          fmtList[i] % flagValues[k-1, i])
                         	        fh.write(newLine)
 
 
-			except IOError, e:
+			except (IOError, IndexError), e:
 				logger.error(e)
 				raise IOError(e)
 

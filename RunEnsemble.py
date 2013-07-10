@@ -3,7 +3,6 @@
 # Script for running GEOS-Chem Adjoint Ensembles utilizing MPI4py
 import os
 import sys
-import subprocess
 import shutil
 import logging
 import ConfigParser
@@ -30,6 +29,8 @@ formatter = logging.Formatter('%(asctime)s {%(levelname)s} %(name)s:'
 sh.setFormatter(formatter)
 sh.setLevel(logging.INFO)
 logger.addHandler(sh)
+
+logger.debug('MPI size: %i' % size)
 
 # Retrieve number of processors per node from argument list
 try:
@@ -232,16 +233,16 @@ if rank == 0:
 					logger.error('Error copying input file %s to %s'
 					     	% (tmpInFiles[j][i], dir))
 
-			#Send run directory location to each other node
-			if not i == 0:
-				comm.send(dir, dest=i*procPerNode, tag=1)
-
 		except Exception, e:
 			logger.critical('Error copying directories for'
 					' simulations: %s' % (e))
 			comm.Abort()
 
 	logger.info('Directory setup time took %fs' % (MPI.Wtime() - dirSetupStart))
+	for i in range(1, numSims):
+		dir = os.path.join(simFileDir, '%d_run' % (i))
+		comm.send(dir, dest=i*procPerNode, tag=1)
+
 	dir = mainNodeDir #mainNodeDir is the run directory for 0_run
 
 #Simulation starts on each node available
@@ -257,21 +258,22 @@ if rank % procPerNode == 0:
 	# for each node
 	try:
 		ensSimDir = os.path.split(dir)[1]
-		os.putenv("RUNID", ensSimDir)
+		os.environ['RUNID'] = ensSimDir
 		logger.debug("Environment variable for specific run set to %s"
-			     % (os.popen("echo $RUNID").read()) ) 
+			     % os.getenv('RUNID'))
 	except OSError, e:
 		logger.error("Problem setting up environment on %s: %s" % (name, e) )
 
 	#Run simulation
 	try:
 		logger.debug('Starting simulation on %s for %s' % (name, dir) )
-		#same as typing command run > log into terminal
 		runloc = os.path.join(dir, 'run')
 		logloc = os.path.join(dir, 'log')
 		logFile = open(logloc, 'w')
 		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y\n'))
-		runProc = subprocess.call([runloc], shell=False, stdout=logFile)
+		retCode = os.system('%s >> %s' % (runloc, logloc))
+		logger.debug('Return code for running GC-Adj was %i' % retCode)
+		logFile.flush()
 		logFile.write(time.strftime('%a %b %d %H:%M:%S %Z %Y\n'))
 		logFile.close()
 	except (OSError, IOError), e:
