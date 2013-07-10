@@ -1,7 +1,7 @@
 #!/bin/csh
 #PBS -N gcadj_v33e_CH4_GCEns     
-#PBS -l nodes=4:ppn=24
-#PBS -l walltime=10:00:00
+#PBS -l nodes=12:ppn=24
+#PBS -l walltime=24:00:00
 #PBS -V
 
 setenv ppn 24
@@ -14,7 +14,7 @@ mv -f geos $CH4/gcadj_v33e_CH4_GCEns/runs/v8-02-01/geos5/geos
 
 cd /data/aperkins/pyEnsemble
 
-mpirun -r ssh -np 96 python RunEnsemble.py $ppn 
+mpirun -r ssh -np 288 python RunEnsemble.py $ppn 
 
 exit 0
 
