@@ -34,9 +34,9 @@ logger.debug('MPI size: %i' % size)
 
 # Retrieve number of processors per node from argument list
 try:
-        assert len(sys.argv) == 2, ('RunEnsemble requires 1 argument (ppn)'
-    				    ' to be run. Please alter your job script'
-				    ' accordingly.') 
+        assert len(sys.argv) == 2, ('RunEnsemble requires 2 argument (ppn) '
+    				    ' to be run. Please alter your '
+				    'job script accordingly.') 
 except AssertionError, e:
         logger.critical(e)
 	sys.exit(1)
@@ -202,10 +202,28 @@ if rank == 0:
 			#Only want to copy first level
 			break
 	else:
-		logger.info('Copying exe file to existing manager node dir %s'
-			     % (mainNodeDir) )
+		#Copy geos, run, and input.geos to all folders if directores exist
+		logger.info('Copying goes, run, and existing input.geos/input.gcadj files'
+			    ' to manager node dir %s'% (mainNodeDir) )
 		exeFileDir = os.path.join(baseSimDir, simRunDir, exeFilename)
 	  	shutil.copy(exeFileDir, mainNodeDir)
+
+		runFileDir = os.path.join(baseSimDir, simRunDir, 'run')
+		shutil.copy(runFileDir, mainNodeDir)
+
+		geosInFileDir = os.path.join(baseSimDir, simRunDir, 'input.geos')
+		if os.path.exists(geosInFileDir):
+			shutil.copy(geosInFileDir, mainNodeDir)
+                else:
+                        logger.debug('input.geos was not copied because it did not'
+                                     ' exist in %s' % geosInFileDir)
+
+		gcadjInFileDir = os.path.join(baseSimDir, simRunDir, 'input.gcadj')
+		if os.path.exists(gcadjInFileDir):
+			shutil.copy(gcadjInFileDir, mainNodeDir)
+		else:
+			logger.debug('input.gcadj was not copied because it did not'
+				     ' exist in %s' % gcadjInFileDir)
 
 	#Copy run_0 folder for each distinct remaining simulation
 	logger.info('Creating run directories for each simulation')
@@ -218,9 +236,15 @@ if rank == 0:
 						     % (dir) )
 					shutil.copytree(mainNodeDir, dir)
 				else:
-					logger.debug('Copying exe to existing '
-						     'simulation %s' % (dir) )
+					logger.debug('Copying geos, run, input.geos'
+						     ' to existing simulation %s' 
+						     % (dir) )
 					shutil.copy(exeFileDir, dir)
+					shutil.copy(runFileDir, dir)
+					if os.path.exists(goesInFileDir):
+						shutil.copy(geosInFileDir, dir)
+					if os.path.exists(gcadjInFileDir):
+						shutil.copy(gcadjInFileDir, dir)
 			
 			#Move unique input file to each run directory
 			for j in range(0, numInFiles):

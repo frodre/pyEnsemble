@@ -1,0 +1,460 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+ifort -cpp -w -O3 -auto -noalign -convert big_endian -fp-model precise  -g -I/curc/tools/x_86_64/rh6/netcdf4/4.3/hdf5/1.8.11/hdf4/4.2.9/szip/2.1/zlib/1.2.78/jpeglib/8d/openmpi/1.6.4/intel/13.0.0/torque/4.2.3/ib/include/ -openmp -Dmultitask   fjx_acet_mod.o charpak_mod.o error_mod.o netcdf_util_mod.o logical_mod.o directory_mod.o unix_cmds_mod.o tracer_mod.o julday_mod.o file_mod.o grid_mod.o time_mod.o logical_adj_mod.o directory_adj_mod.o bpch2_mod.o regrid_1x1_mod.o pressure_mod.o transfer_mod.o future_emissions_mod.o lai_mod.o tracerid_mod.o benchmark_mod.o comode_mod.o diag_mod.o dao_mod.o tropopause_mod.o gckpp_adj_Precision.o gckpp_adj_Parameters.o adj_arrays_mod.o gckpp_adj_Function.o gckpp_adj_Global.o gckpp_adj_Monitor.o gckpp_adj_Util.o gckpp_adj_HessianSP.o gckpp_adj_Hessian.o gckpp_adj_Initialize.o gckpp_adj_JacobianSP.o gckpp_adj_Jacobian.o gckpp_adj_LinearAlgebra.o gckpp_adj_Rates.o gckpp_adj_StoichiomSP.o gckpp_adj_Stoichiom.o gckpp_adj_Integrator.o gckpp_adj_Model.o checkpoint_mod.o pbl_mix_mod.o pbl_mix_adj_mod.o diag03_mod.o diag04_mod.o diag41_mod.o diag42_mod.o diag48_mod.o diag49_mod.o diag50_mod.o diag51_mod.o diag56_mod.o diag59_mod.o diag_oh_mod.o diag_pl_mod.o ocean_mercury_mod.o drydep_mod.o scale_anthro_mod.o edgar_mod.o bravo_mod.o emep_mod.o nei2005_anthro_mod.o epa_nei_mod.o streets_anthro_mod.o arctas_ship_emiss_mod.o cac_anthro_mod.o vistas_anthro_mod.o geia_mod.o global_oh_mod.o global_ch4_mod.o global_ch4_adj_mod.o global_hno3_mod.o global_no3_mod.o global_nox_mod.o global_o1d_mod.o global_o3_mod.o uvalbedo_mod.o RnPbBe_mod.o Kr85_mod.o acetone_mod.o aerosol_mod.o aircraft_nox_mod.o biofuel_mod.o gc_biomass_mod.o gfed2_biomass_mod.o biomass_mod.o c2h6_mod.o ch3i_mod.o a3_read_mod.o a6_read_mod.o i6_read_mod.o gcap_read_mod.o gwet_read_mod.o xtra_read_mod.o megan_mod.o carbon_mod.o carbon_adj_mod.o optdepth_mod.o planeflight_mod.o restart_mod.o checkpt_mod.o population_mod.o lightning_nox_mod.o rpmares_mod.o rpmares_adj_mod.o isoropia_mod.o wetscav_mod.o wetscav_adj_mod.o seasalt_mod.o sulfate_mod.o sulfate_adj_mod.o hcn_ch3cn_mod.o tagged_co_mod.o tagged_co_adj_mod.o tagged_ox_mod.o tagged_ox_adj_mod.o h2_hd_mod.o gcap_convect_mod.o fvdas_convect_mod.o convection_mod.o fvdas_convect_adj_mod.o convection_adj_mod.o pjc_pfix_mod.o pjc_pfix_geos5_window_mod.o dust_dead_mod.o dust_mod.o dust_adj_mod.o co2_mod.o co2_adj_mod.o mercury_mod.o toms_mod.o tpcore_bc_mod.o tpcore_fvdas_mod.o tpcore_mod.o tpcore_window_mod.o tpcore_geos5_window_mod.o transport_mod.o linoz_mod.o linoz_adj_mod.o upbdflx_adj_mod.o upbdflx_mod.o strat_chem_mod.o strat_chem_adj_mod.o chemistry_mod.o chemistry_adj_mod.o emissions_mod.o emissions_adj_mod.o gamap_mod.o input_mod.o improve_bc_mod.o geos_chem_mod.o ErrorModule.o sciabr_co_obs_mod.o tes_ch4_mod.o mem_ch4_mod.o leo_ch4_mod.o geocape_ch4_mod.o geos_chem_adj_mod.o inv_hessian_mod.o input_adj_mod.o inverse_mod.o inverse_driver.o        CO_strat_pl.o CO_strat_pl_adj.o airmas.o anthroems.o arsl1k.o backsub.o biofit.o boxvl.o calcrate.o calcrate_adj.o chemdr.o chemdr_adj.o cleanup.o cleanup_adj.o decomp.o diag1.o diag3.o diag_2pm.o diagoh.o emf_scale.o emfossil.o emisop.o emisop_grass.o emisop_mb.o emissdr.o emmonot.o fertadd.o findmon.o fyrno3.o fyhoro.o gasconc.o get_global_ch4.o getifsun.o initialize.o jsparse.o ksparse.o lump.o lump_adj.o ndxx_setup.o ohsave.o partition.o partition_adj.o pderiv.o physproc.o precipfrac.o pulsing.o rdisopt.o rdlai.o rdland.o rdlight.o rdmonot.o rdsoil.o readchem.o reader.o readlai.o routines.o ruralbox.o schem.o schem_adj.o setbase.o setemdep.o setemis.o setemis_adj.o setmodel.o sfcwindsqr.o smvgear.o soilbase.o soilcrf.o soilnoxems.o soiltemp.o soiltype.o subfun.o sunparam.o tcorr.o tropopause.o update.o xltmmp.o                        ifort_errmsg.o BLKSLV.o CLDSRF.o EFOLD.o FLINT.o GAUSSP.o GEN.o JRATET.o JVALUE.o LEGND0.o MATIN4.o MIESCT.o NOABS.o OPMIE.o RD_TJPL.o SPHERE.o XSEC1D.o XSECO2.o XSECO3.o fast_j.o fjfunc.o inphot.o jv_index.o mmran_16.o photoj.o rd_js.o rd_prof.o set_aer.o set_prof.o                     \
+	-L/curc/tools/x_86_64/rh6/netcdf4/4.3/hdf5/1.8.11/hdf4/4.2.9/szip/2.1/zlib/1.2.78/jpeglib/8d/openmpi/1.6.4/intel/13.0.0/torque/4.2.3/ib/lib/ -lnetcdff -lnetcdf -L/curc/tools/x_86_64/rh6/hdf5/1.8.11/szip/2.1/zlib/1.2.78/jpeglib/8d/openmpi/1.6.4/intel/13.0.0/torque/4.1.4/ib/lib -lhdf5_hl -lhdf5 -L/curc/tools/x_86_64/rh6/hdf4/4.2.9/szip/2.1/zlib/1.2.7/jpeglib/8d/openmpi/1.6.4/intel/13.0.0/torque/4.1.4/ib/lib/ -lmfhdf -ldf -L/curc/tools/x_86_64/rh6/zlib/1.2.7/lib -lz -lm -L/curc/tools/x_86_64/rh6/intel/13.0.0/composer_xe_2013.0.079/mkl/lib/intel64  /curc/tools/x_86_64/rh6/intel/13.0.0/composer_xe_2013.0.079/mkl/lib/intel64/libmkl_blas95_lp64.a  /curc/tools/x_86_64/rh6/intel/13.0.0/composer_xe_2013.0.079/mkl/lib/intel64/libmkl_lapack95_lp64.a -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -openmp -lpthread -lm -o geos
+08-19 10:43:11 {INFO} pyEnsemble: Loading configuration file pyEnsemble.cfg.
+08-19 10:43:11 {INFO} pyEnsemble: Configuration file loading complete.
+08-19 10:43:11 {INFO} pyEnsemble: Beginning input file generation
+08-19 10:43:11 {INFO} pyEnsemble.InputGen: Parsing flags for input file generation
+08-19 10:43:11 {INFO} pyEnsemble: Finished input file generation
+08-19 10:43:11 {INFO} pyEnsemble: Copying simulation to ensemble directory
+08-19 10:43:11 {INFO} pyEnsemble: Moving simulation files into 0_run directory
+08-19 10:43:11 {INFO} pyEnsemble: Copying exe file to existing manager node dir gcadj_v33e_CH4_GCEns/runs/v8-02-01/geos5/0_run
+08-19 10:43:11 {INFO} pyEnsemble: Creating run directories for each simulation
+08-19 10:43:13 {INFO} pyEnsemble: Directory setup time took 1.915838s
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `adjtmp/*.chk.*': No such file or directory
+rm: cannot remove `diagadj/gctm.adj.*': No such file or directory
+rm: cannot remove `OptData/*.gdt.*': No such file or directory
+rm: cannot remove `OptData/cfn.*': No such file or directory
+rm: cannot remove `diagadj/*.fd.*': No such file or directory
+rm: cannot remove `diagadj/*.fdglob.*': No such file or directory
+rm: cannot remove `diagadj/gctm.iteration': No such file or directory
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	105m59.153s
+user	477m26.061s
+sys	49m56.954s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:12 {INFO} pyEnsemble: End of RunEnsemble script on node0570.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m1.811s
+user	478m23.407s
+sys	50m5.944s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:15 {INFO} pyEnsemble: End of RunEnsemble script on node0840.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m2.254s
+user	476m42.422s
+sys	50m19.565s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:16 {INFO} pyEnsemble: End of RunEnsemble script on node0826.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m5.029s
+user	478m10.489s
+sys	50m8.445s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:18 {INFO} pyEnsemble: End of RunEnsemble script on node0515.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m7.668s
+user	476m47.459s
+sys	50m17.247s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:21 {INFO} pyEnsemble: End of RunEnsemble script on node0878.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m10.959s
+user	476m27.064s
+sys	50m6.726s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:24 {INFO} pyEnsemble: End of RunEnsemble script on node0807.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m25.665s
+user	478m26.748s
+sys	50m43.045s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:39 {INFO} pyEnsemble: End of RunEnsemble script on node0572.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m29.533s
+user	477m5.774s
+sys	50m27.174s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:43 {INFO} pyEnsemble: End of RunEnsemble script on node0850.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m34.715s
+user	476m49.689s
+sys	50m37.056s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:48 {INFO} pyEnsemble: End of RunEnsemble script on node1723.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m36.002s
+user	478m10.689s
+sys	51m18.817s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:49 {INFO} pyEnsemble: End of RunEnsemble script on node0752.
+
+real	106m36.238s
+user	478m14.121s
+sys	51m32.378s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:29:49 {INFO} pyEnsemble: End of RunEnsemble script on node0650.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m46.840s
+user	481m12.031s
+sys	50m42.835s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:30:00 {INFO} pyEnsemble: End of RunEnsemble script on node1166.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	106m51.610s
+user	476m30.684s
+sys	51m13.779s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:30:05 {INFO} pyEnsemble: End of RunEnsemble script on node0822.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	107m22.635s
+user	476m17.694s
+sys	52m18.678s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:30:36 {INFO} pyEnsemble: End of RunEnsemble script on node0880.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	107m30.172s
+user	488m45.647s
+sys	50m17.492s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:30:43 {INFO} pyEnsemble: End of RunEnsemble script on node0641.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	107m36.383s
+user	488m50.281s
+sys	51m18.312s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:30:49 {INFO} pyEnsemble: End of RunEnsemble script on node0476.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	107m40.859s
+user	492m53.793s
+sys	49m32.298s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:30:54 {INFO} pyEnsemble: End of RunEnsemble script on node0579.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	107m47.740s
+user	491m40.306s
+sys	50m50.340s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:31:00 {INFO} pyEnsemble: End of RunEnsemble script on node0471.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m9.100s
+user	494m24.394s
+sys	51m6.920s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:31:23 {INFO} pyEnsemble: End of RunEnsemble script on node0404.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m11.502s
+user	492m43.612s
+sys	51m2.837s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:31:24 {INFO} pyEnsemble: End of RunEnsemble script on node0467.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m16.445s
+user	493m25.126s
+sys	50m54.418s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:31:30 {INFO} pyEnsemble: End of RunEnsemble script on node0801.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m17.460s
+user	491m27.015s
+sys	50m48.888s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:31:30 {INFO} pyEnsemble: End of RunEnsemble script on node0605.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m24.383s
+user	493m30.762s
+sys	51m7.214s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:31:38 {INFO} pyEnsemble: End of RunEnsemble script on node0755.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m48.647s
+user	492m51.786s
+sys	51m13.283s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:32:01 {INFO} pyEnsemble: End of RunEnsemble script on node0468.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	108m59.502s
+user	497m40.373s
+sys	51m13.673s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:32:13 {INFO} pyEnsemble: End of RunEnsemble script on node0577.
+rm: cannot remove `OptData/cfn.01': No such file or directory
+
+real	109m43.596s
+user	493m2.298s
+sys	52m21.645s
+ls: cannot access core.*: No such file or directory
+ls: cannot access adjtmp/*.chk.*: No such file or directory
+08-19 12:32:57 {INFO} pyEnsemble: End of RunEnsemble script on node0640.
+['cfn', '01']
+['gctm', 'sf', '01']
+['gctm', 'gdt', '01']
+2124441.moab.rc.colorado.edu

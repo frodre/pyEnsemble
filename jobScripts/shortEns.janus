@@ -1,6 +1,6 @@
 #!/bin/bash
 # Set the name of the job
-#PBS -N gcadj_v33e_CH4_GCEns 
+#PBS -N gcadj_v33e_CH4_random 
 
 # Set number for allocation
 #PBS -A ME00000002
@@ -12,7 +12,6 @@
 # Select number of nodes, number of  processor per node.
 
 #PBS -l nodes=26:ppn=12
-
 
 # Join the output and error files
 
@@ -27,23 +26,22 @@ export KMP_STACKSIZE=2097152000
 
 
 # Test: Compile code
-rm $CH4/gcadj_v33e_CH4_GCEns/runs/v8-02-01/geos5/geos
-cd $CH4/gcadj_v33e_CH4_GCEns/code
+rm $CH4/gcadj_v33e_CH4_random/runs/v8-02-01/geos5/geos
+cd $CH4/gcadj_v33e_CH4_random/code
 make -f Makefile.ifort
 chmod +x geos
-mv -f geos $CH4/gcadj_v33e_CH4_GCEns/runs/v8-02-01/geos5/geos
-cd $CH4/gcadj_v33e_CH4_random/runs/v8-02-01/geos5/
+mv -f geos $CH4/gcadj_v33e_CH4_random/runs/v8-02-01/geos5/geos
 
-cd $LFS/pyEnsemble
+cd $LFS/pyEnsemble2
 
 source pyVE/bin/activate
-mpirun python RunEnsemble.py $ppn 
+mpirun python RunEnsemble.py $ppn
 python NextJob.py
 deactivate
 
-cd ~/pyEnsemble/jobScripts
-qsub -q janus-short pyEnsemble.janus
-
+cd  ~/pyEnsemble/jobScripts
+qsub -q janus-short shortEns.janus
+ 
 exit 0
 
 

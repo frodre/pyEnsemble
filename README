@@ -13,10 +13,14 @@ PyEnsemble v0.8
 ***************************************
 
   - Python v2.5 or greater.
+  - MPI and associated library paths setup
+  - GCC compiler
 
 ***************************************
 *  INSTALLATION
 ***************************************
+
+     Download the
 
 ***************************************
 * USAGE EXAMPLE
