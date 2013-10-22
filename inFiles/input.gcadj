@@ -40,7 +40,7 @@ Tracer  #1                     : 1    CH4      1          1         1
           FOR LADJ_EMS         :
 NNEMS: ems groups implemented  : 1
 Emission entries ------------> : EMS# ems_name       opt  SF_DEFAULT REG_PARAM ERROR
-Emission #1                    : 1    ADCH4EMS       T      1.0        10000        1
+Emission #1                    : 1    ADCH4EMS       T      1.0          1       0.4
 Number emis time group MMSCL   : 1
 >------------------------------<
         FOR LADJ_STRAT         :

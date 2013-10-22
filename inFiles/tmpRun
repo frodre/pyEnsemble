@@ -1,0 +1,304 @@
+#!/bin/bash
+####
+# Can insert bsub commands here:
+##BSUB -n 08 -W 02:00
+##BSUB -o outfile -e errfile   # my default stdout, stderr files
+####
+#
+# This script runs succesive iterations of optimizing the cost function using 
+# gradients that are either computed or read from *.gdt.* files. dkh, 02/05
+#
+# Notes:
+#  - added comments (dkh, 04/11/05) 
+#  - make directory names shell variables (dkh, 10/06/06)  
+#  - Now make a tar file of aero.ave* and satave.bpch files at each iteration
+#  - Add bsub commands for batch jobs on orion
+#  - This script only seems to work from a tcsh.  
+#  - Improved diagnostics and output, added more comments. (dkh, 11/21/07) 
+#  - make default setup for running on prospero. (dkh, 11/18/10) 
+#    - comment out backup
+#    - use echo instead of ex
+#    - change number of threads
+#    - append ctm.bpch and log with iteration number
+#############################################################################
+
+##################################################################
+# Set run parameters. 
+# - X
+# - XSTOP
+# - RNAME 
+#
+# These need to be set and checked  before every run. 
+# X = 0 creates observations.  X_STOP < X only 
+# creates a backup of the program directory. 
+##################################################################
+# Set the start (or current ) iteration number
+X=#START
+
+# Set the stopping iteration number
+XSTOP=#END
+
+# Give every run a unique name (default is $PBS_JOBID)
+RNAME=gcadj_v33e_CH4_GCEns 
+
+# Set compiler, if necessary
+#source /usr/projects/compilers/intel/9.1.043/bin/ifortvars.sh
+
+##################################################################
+# 
+# File structure should be:
+#  DRUN/DPACK/DRUNDIR
+#  DRUN/DPACK/DCODE
+#  
+# Definitions:
+#  - DRUNDIR contains the input files, run script, log files, and 
+#     the optimization files. 
+#  - DCODE contains the source code. 
+#  - DPACK is the complete package of files and folders 
+#  - DRUN is the location where the user would like to place the 
+#     package during execution (usually a local scratch dive). 
+#  - DSAVE is the location where the packages are saved before
+#     and after execution (usually a large NFS mounted storage 
+#     drive). 
+#
+# You MUST set the following according to your filesystem:
+#  - DRUNDIR 
+#  - DSAVE 
+#
+# You MAY change the following:
+#  - DPACK (default is to set equal to RNAME)
+#      
+# It is unlikey that you would change the following:
+#  - DCODE   (would require like change in CMN_ADJ)
+#  - DRUNDIR (would require like change in CMN_ADJ) 
+##################################################################
+# Directory in the package where the executable runs
+DRUNDIR=runs/v8-02-01/geos5/$RUNID
+
+# Directory in the package with the source code 
+DCODE=code
+
+# Package directory name
+DPACK=$RNAME
+
+# Directory where run packages are unpacked and run
+DRUN=$LFS/pyEnsemble
+
+# Directory where run packages are stored and saved (if not saved locally)
+DSAVE=$DRUN
+
+# Get rid of old executables
+#if [ -f geos ]; then 
+#   rm geos 
+#fi
+
+# The optimization code will create this file to indicate completion.  Remove it to start.
+#if [ -f done_with_opt ]; then 
+#   rm done_with_opt
+#fi
+
+# dkh debug unlimit core size and force core dump
+ulimit -c 5000
+decfort_dump_flag=y
+
+#  Set number of threads
+export OMP_NUM_THREADS=12
+
+grep 'Xeon' /proc/cpuinfo
+
+# go to run direction 
+cd $DRUN/$DPACK/$DRUNDIR
+
+##################################################################
+# For every iteration we edit inverse.f, recompile, execute geos
+#  and save the results.
+##################################################################
+while [ $X -le $XSTOP ]
+do
+        echo "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+        echo "       R U N   F O R   N _ C A L C _ S T O P  =  $X"
+        echo " "
+  
+        # Clean out old files
+        echo ' run: Removing old files'
+        echo '  - checking for old core files'
+        ls core.*
+        if [ $? -eq 0 ]; then 
+           echo '  - removing old core files'
+           rm -v core.*
+        fi 
+        if [ -f ctm.bpch ]; then 
+           rm -v ctm.bpch
+        fi 
+        echo '  - checking for *.chk.* file '
+        ls adjtmp/*.chk.*
+        if [ $? -eq 0 ]; then 
+           echo '  - removing old *.chk.* file '
+           rm -v adjtmp/*.chk.*
+        fi 
+
+        # Optional: Save a copy to temporary storage
+        #echo ' run: Backing up to temp storage:'
+        #cd $DRUN
+        #tar -cf $RNAME.tar $DPACK/*
+        #cp -v $DRUN/$RNAME.tar $DSAVE/$RNAME.tar
+
+        echo "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+
+        #cd $DRUN/$DPACK/$DCODE
+
+        ##################################################################
+        # Now update the iteration number in inverse.f 
+        ##################################################################
+        # Now use the ex editor. Substitution is cleaner. 
+        #ex -c :"/N_CALC_STOP = " +:"s/N_CALC_STOP = \d\+/N_CALC_STOP = $X/" +:wq inverse.f 
+        cd $DRUN/$DPACK/$DRUNDIR
+        #ex -c :"s/\d\+/$X/" +:wq ITER
+        echo "          $X" > ITER
+        echo "ITER file updated"
+
+        ##################################################################
+        # Compile geos, move it to the run directory and execute
+        ##################################################################
+	#make clean
+        #cd $DRUN/$DPACK/$DCODE
+	#make -f Makefile.ifort
+
+	#mv -f geos ../$DRUNDIR/
+	#cd ../$DRUNDIR/
+	time ./geos
+        Y=$X
+
+        # make a copy of ctm.bpch for the current iteration
+        cp -v ctm.bpch ctm.bpch.$X
+
+        # Clean out old files
+        echo ' run: Removing excess files'
+        echo '  - checking for old core files'
+        ls core.*
+        if [ $? -eq 0 ]; then
+           echo '  - removing core files'
+           rm -v core.*
+        fi 
+        echo '  - checking for *.chk.* file '
+        ls adjtmp/*.chk.*
+        if [ $? -eq 0 ]; then 
+           echo '  - removing old *.chk.* file '
+           rm -v adjtmp/*.chk.*
+        fi 
+
+        ##################################################################
+        # For simulations with IMPROVE of SCIA observations:
+        # Save the aero.ave and satave files at each iteration to 
+        # a tar file that won't get overwritten. 
+        ##################################################################
+        #cd ../adjtmp/
+        #tar -cf fwd_dat.$X.tar aero.ave* satave*
+        #tar -cf fwd_dat.$X.tar aero.ave* 
+        #cd ../$DRUNDIR/
+
+        if [ -f done_with_opt ]; then 
+           X=$XSTOP
+        fi 
+
+       # Check to see if GC adjoint finished OK.  
+       #if [ $X -eq 0 ]; then
+          # it's hard to tell for just the fwd run
+          #XGOOD=2
+          #echo ' run: checking if finished iteration ' $X 
+          #if [ -f ctm.bpch ]; then
+          #   echo '  - ctm.bpch is found'
+          #   XGOOD=0
+          #else
+          #   echo '  - ctm.bpch is not found'
+          #   XGOOD=1
+          #   X=$XSTOP
+          #fi 
+       # A succesful run will generate a gctm.sf.* file. 
+       if [ $X -le 9 ]; then
+          echo ' run: checking if finished iteration ' $X 
+          if [ -f OptData/gctm.sf.0${X} ]; then
+             echo '  - found ' gctm.sf.0$X
+             XGOOD=0
+          else
+             echo '  - did not find ' gctm.sf.0$X 
+             XGOOD=1
+             X=$XSTOP
+          fi 
+       elif [ $X -gt 9 ]; then 
+          echo ' run: checking if finished iteration ' $X 
+          if [ -f OptData/gctm.sf.${X} ]; then
+             echo '  - found ' gctm.sf.$X
+             XGOOD=0
+          else
+             echo '  - did not find ' gctm.sf.$X 
+             XGOOD=1
+             X=$XSTOP
+          fi 
+        fi 
+
+        X=$((X+1))
+done 
+
+##################################################################
+# Finish up. 
+## Save program directories again.
+##################################################################
+echo "sssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+
+## For just a forward run (XSTOP=0), it's hard to say if 
+## everything completed ok. 
+#if [ $XSTOP -eq 0 ]; then 
+#   XGOOD=2
+#fi 
+# check to see if it even compiled
+if [ ! -f geos ]; then
+   XGOOD=3
+fi  
+if   [ "$XGOOD" -eq 0 ]; then 
+      echo " ------------------------------------------------"
+      echo " G E O S   C H E M   A D J O I N T   E X I T E D "
+      echo "            N O R M A L L Y                      "
+      echo " ------------------------------------------------"
+elif [ "$XGOOD" -eq 1 ]; then 
+      echo " ------------------------------------------------"
+      echo "     *  * *   E R R O R   * * *                  "
+      echo " G E O S   C H E M   A D J O I N T   D I D       "
+      echo "     N O T    F I N I S H .                      "
+      echo " ------------------------------------------------"
+elif [ "$XGOOD" -eq 2 ]; then 
+      echo " ------------------------------------------------"
+      echo " G E O S   C H E M   F O R W A R D   M O D E L   " 
+      echo "       ( check log file to see if OK )           "
+      echo " ------------------------------------------------"
+elif [ "$XGOOD" -eq 3 ]; then 
+      echo " ------------------------------------------------"
+      echo "     *  * *   E R R O R   * * *                  "
+      echo "    D I D   N O T   C O M P I L E                " 
+      echo "      ( check source code for errors )           "
+      echo " ------------------------------------------------"
+fi
+
+## Clean out checkpoint files 
+#if [ -f adjtmp/*.chk.* ]; then
+    #rm adjtmp/*.chk.* 
+#fi
+
+### Optional: Save a copy to temporary storage
+#echo ' Creating run package tarball '
+#cd $DRUN
+#tar -cf $RNAME.tar $DPACK/*
+#
+## Save a copy to temp storage
+#echo ' Backing up to temp storage:'
+#cp -v $DRUN/$RNAME.tar $DSAVE/$RNAME.tar
+
+
+### Optional: Save a copy to permanent storage
+##echo ' Backing up to permanent storage:'
+##cp -v $DRUN/$RNAME.tar $ARCHIVE/runs/$RNAME.tar
+
+echo "                  N_CALC_STOP at $Y             "
+echo " "
+echo " R U N   S C R I P T    E X I T E D                    "
+echo "sssssssssssssssssssssssssssssssssssssssssssssssssssssss"
