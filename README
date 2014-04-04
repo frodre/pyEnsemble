@@ -20,7 +20,19 @@ PyEnsemble v0.8
 *  INSTALLATION
 ***************************************
 
-     Download the
+     PyEnsemble relies on the numpy and mpi4py libraries to run.  If the current
+  system python version includes those libraries, no installation is necessary.
+  Just move pyEnsemble to the desired directory and the scripts should be able to
+  run.
+
+     If problems are encountered when using the system python libraries or if 
+  getting mpi4py and numpy installed on the system is not possible, included is
+  a python virtual environment which uses the system version of python and installs
+  the required libraries locally.  To setup this virtual environment, the paths 
+  to all MPI libraries, Python, and GCC compiler must be set.  On cluster computing
+  systems usually these are setup by default or a user is required to load the correct 
+  modules/dotkits.  Consult system documentation, or administrators if you are unsure
+  about this requirement.  
 
 ***************************************
 * USAGE EXAMPLE
