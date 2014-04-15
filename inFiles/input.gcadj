@@ -8,7 +8,6 @@ Kalman filter     L3DVAR       : F
 Sensitivity       LSENS        : F
  => spot finite diff  FD_SPOT  : F
  => global finite diff FD_GLOB : F
-Seed for Monte Carlo           : %SEED
 -------------------------------+-----------------------------------------------
 %%% FORWARD MODEL OPTIONS %%%           
 adjoint chemistry LADJ_CHEM    : T
@@ -24,7 +23,7 @@ Scale up and FILL adj transport: F
 -------------------------------+-----------------------------------------------
 %%% DIRECTORIES %%%
 Optimization output            : OptData/
-Temporary adjoint dir adjtmp   : adjtmp/
+Temporary adjoint dir adjtmp   : /state/partition2/temp
 Diagnostics ouptut             : diagadj/
 -------------------------------------------------------------------------------
 %%% CONTROL VARIABLE MENU %%%
@@ -40,7 +39,7 @@ Tracer  #1                     : 1    CH4      1          1         1
           FOR LADJ_EMS         :
 NNEMS: ems groups implemented  : 1
 Emission entries ------------> : EMS# ems_name       opt  SF_DEFAULT REG_PARAM ERROR
-Emission #1                    : 1    ADCH4EMS       T      1.0          1       0.4
+Emission #1                    : 1    ADCH4EMS       T          0.6       1        0.4
 Number emis time group MMSCL   : 1
 >------------------------------<
         FOR LADJ_STRAT         :
@@ -72,8 +71,8 @@ Species #1                     : O3
 %%% FINITE DIFFERENCE MENU %%%
 fd perturbation        FD_DIFF : 0.1
 Numerator of derivative to test:---
- => longitude degree   LONFD   : -88 
- => latitude  degree   LATFD   : 50
+ => longitude degree   LONFD   :-104
+ => latitude  degree   LATFD   : 40.5
  => OR pick box by grid index? : F
    => longidute index  IFD     : 16
    => latitude index   JFD     : 33
