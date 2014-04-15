@@ -1,4 +1,4 @@
 *.o*
 *.pyc
-tmp/*
-logs/*
+*.tmp*
+*.log
